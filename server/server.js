@@ -19,6 +19,8 @@ app.get('/', function(req, res) {
 });
 
 // TODO: Use the characterRouter as middleware on the '/api/characters' route
+app.use('/api/characters', characterRouter);
+
 
 app.listen(port, function(err) {
   if (err) {
