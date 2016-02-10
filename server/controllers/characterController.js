@@ -33,9 +33,21 @@ exports.retrieveOne = function(req, res) {
   });
 };
 
+exports.updateOne = function(req, res) {
+  var query = {_id: req.params.id};
+  var updatedProps = req.body;
+  var options = {new: true, upsert: true};
+  Character.findOneAndUpdate(query, updatedProps, options, function(err, updatedCharacter) {
+  	if (err) {
+  	  return res.json(err);
+  	}
+  	res.json(updatedCharacter);
+  });
+};
+
 exports.delete = function(req, res) {
 	var query = req.query;
-  Character.find(query, function(err, response) {
+  Character.find(query, function(err, emptyArray) {
   	if (err) {
   		return res.json(err);
   	}
@@ -43,7 +55,19 @@ exports.delete = function(req, res) {
       if (err) {
         return res.json(err);
       }
-      res.json(response);
+      res.json(emptyArray);
     });
   });
 };
+
+exports.deleteOne = function(req, res) {
+  var query = {_id: req.params.id};
+  Character.findOneAndRemove(query, function(err, deletedCharacter) {
+  	if(err) {
+  		return res.json(err);
+  	}
+  	res.json(deletedCharacter);
+  });
+};
+
+

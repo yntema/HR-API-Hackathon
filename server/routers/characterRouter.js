@@ -8,7 +8,9 @@ characterRouter.route('/')
   .delete(characterController.delete);
 
 characterRouter.route('/:id')
-  .get(characterController.retrieveOne);
+  .get(characterController.retrieveOne)
+  .put(characterController.updateOne)
+  .delete(characterController.deleteOne);
 
 
 module.exports = characterRouter;
